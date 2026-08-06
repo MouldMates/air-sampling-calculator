@@ -308,7 +308,7 @@
      'https://mouldmates.com.au/sampling-thank-you'. On a successful quote request the
      visitor is sent there so the pixel fires. Leave blank to show the on-page message. */
   var THANKYOU_URL = 'https://mouldmates.com.au/sampling-thank-you';
-  var FEE = 200;   /* attendance fee, added once */
+  var FEE = 350;   /* attendance fee, added once — covers our own on-site investigation */
   var RATE = 150;  /* per NATA-accredited lab sample, standard turnaround */
 
   /* Suburbs within roughly 30 km of Currumbin. Anything not matched gets the travel note. */
@@ -332,15 +332,15 @@
 
   /* ---------- Pricing engine (PRICING-RULES-air-sampling.md) ---------- */
   function priceIt(){
-    var FEE = 200, RATE = 150;                         /* attendance fee + per-sample rate */
+    var FEE = 350, RATE = 150;                         /* attendance fee + per-sample rate */
     var mult = state.large === 'yes' ? 2 : 1;          /* large/open-plan rooms need 2 samples each */
     var indoor = (state.musty + state.concerned) * mult;
     var total = indoor + 1;                            /* +1 outdoor control sample, always */
     if (total < 3) total = 3;                          /* minimum 3 samples per job */
 
-    var low = FEE + 3 * RATE;                          /* low end always the 3-sample floor = $650 */
+    var low = FEE + 3 * RATE;                          /* low end always the 3-sample floor = $800 */
     var high = FEE + total * RATE;                     /* attendance + samples */
-    var collapse = total <= 3;                         /* range collapses to "From $650" */
+    var collapse = total <= 3;                         /* range collapses to "From $800" */
 
     return {
       total: total,
