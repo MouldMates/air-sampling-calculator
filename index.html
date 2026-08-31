@@ -308,8 +308,10 @@
      'https://mouldmates.com.au/sampling-thank-you'. On a successful quote request the
      visitor is sent there so the pixel fires. Leave blank to show the on-page message. */
   var THANKYOU_URL = 'https://mouldmates.com.au/sampling-thank-you';
-  var FEE = 350;   /* attendance fee, added once — covers our own on-site investigation */
-  var RATE = 150;  /* per NATA-accredited lab sample, standard turnaround */
+  /* ⚠ Both end in a 9 on purpose (Travis, 31 Aug 2026): nothing is to land on a
+     round number. Do not "tidy" them back to $350 / $150. */
+  var FEE = 349;   /* attendance fee, added once — covers our own on-site investigation */
+  var RATE = 149;  /* per NATA-accredited lab sample, standard turnaround */
 
   /* Suburbs within roughly 30 km of Currumbin. Anything not matched gets the travel note. */
   var IN_ZONE = ['currumbin','currumbin waters','currumbin valley','palm beach','elanora','tugun','bilinga','kirra','coolangatta','tweed heads','tweed heads south','tweed heads west','banora point','terranora','bilambil','bilambil heights','piggabeen','cobaki','cobaki lakes','carool','tomewin','burleigh heads','burleigh waters','tallebudgera','tallebudgera valley','miami','mermaid beach','mermaid waters','nobby beach','robina','varsity lakes','reedy creek','mudgeeraba','bonogin','broadbeach','broadbeach waters','clear island waters','carrara','merrimac','worongary','gilston','highland park','nerang','advancetown','austinville','springbrook','neranwood','surfers paradise','main beach','benowa','bundall','ashmore','molendinar','southport','labrador','parkwood','arundel','chevron island','isle of capri','kingscliff','fingal head','chinderah','cudgen','kings forest','casuarina','salt village','cabarita beach','bogangar','tanglewood','hastings point','pottsville','duranbah','tumbulgum','condong','eviron','urliup','dulguigan','north tumbulgum','bungalora','eungella','murwillumbah','south murwillumbah'];
@@ -332,15 +334,15 @@
 
   /* ---------- Pricing engine (PRICING-RULES-air-sampling.md) ---------- */
   function priceIt(){
-    var FEE = 350, RATE = 150;                         /* attendance fee + per-sample rate */
+    var FEE = 349, RATE = 149;                         /* attendance fee + per-sample rate */
     var mult = state.large === 'yes' ? 2 : 1;          /* large/open-plan rooms need 2 samples each */
     var indoor = (state.musty + state.concerned) * mult;
     var total = indoor + 1;                            /* +1 outdoor control sample, always */
     if (total < 3) total = 3;                          /* minimum 3 samples per job */
 
-    var low = FEE + 3 * RATE;                          /* low end always the 3-sample floor = $800 */
+    var low = FEE + 3 * RATE;                          /* low end always the 3-sample floor = $796 */
     var high = FEE + total * RATE;                     /* attendance + samples */
-    var collapse = total <= 3;                         /* range collapses to "From $800" */
+    var collapse = total <= 3;                         /* range collapses to "From $796" */
 
     return {
       total: total,
